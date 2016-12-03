@@ -1,6 +1,7 @@
 import nltk
 import string
 import os
+import sys
 from nltk.stem.porter import PorterStemmer
 from nltk.tokenize import TweetTokenizer
 import numpy as np
@@ -8,7 +9,7 @@ from sklearn.feature_extraction import FeatureHasher
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.metrics import classification_report
 
-path = 'train_data_knn'
+
 token_dict = {}
 token_dict_test = {}
 stemmer = PorterStemmer()
@@ -35,7 +36,7 @@ def POS_tagging(text):
     return POS_tags
 
 Y_act_tag=[]
-for dirName, subDir, files in os.walk(path):
+for dirName, subDir, files in os.walk(sys.argv[1]):
     for file in files:
         fopen=open(os.path.join(dirName, file), 'r')
         review=fopen.read()
@@ -88,7 +89,7 @@ X = hasher.transform(X_feature)
 print(type(X))
 Y_act_tag_test=[]
 
-for dirName, subDir, files in os.walk('test_data_knn'):
+for dirName, subDir, files in os.walk(sys.argv[2]):
     for file in files:
         #print(file)
         fopen=open(os.path.join(dirName, file), 'r')
